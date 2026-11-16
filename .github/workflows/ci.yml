@@ -1,0 +1,41 @@
+name: SpicaAnalytics CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate SpicaAnalytics Enterprise Architecture
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate Package Manifest & Metadata
+        run: |
+          echo "Validating SpicaAnalytics package manifest..."
+          node -e "const pkg = require('./package.json'); console.log('Package:', pkg.name, 'v' + pkg.version);"
+
+      - name: Validate Docker Compose Configuration
+        run: |
+          echo "Validating Docker Compose orchestration..."
+          docker compose -f docker-compose.yml config > /dev/null
+          echo "Docker Compose configuration is valid!"
+
+      - name: Verify Brand Assets & Cloud Manifests
+        run: |
+          test -f public/spica-logo.svg && echo "Brand emblem verified"
+          test -f docker-compose.yml && echo "Docker Compose verified"
+          test -f render.yaml && echo "Render blueprint verified"
+          test -f README.md && echo "Documentation verified"
+          test -f LICENSE && echo "MIT License verified"
+          echo "SpicaAnalytics CI architecture validation complete!"

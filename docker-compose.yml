@@ -1,0 +1,41 @@
+services:
+  spica-analytics:
+    image: ghcr.io/umami-software/umami:latest
+    container_name: spica-analytics-web
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://spica:spica@db:5432/spica
+      APP_SECRET: ${APP_SECRET:-spica_analytics_super_secret_app_key_32_hex_chars_prod}
+      TWO_FACTOR_ENCRYPTION_KEY: ${TWO_FACTOR_ENCRYPTION_KEY:-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef}
+      TRACKER_SCRIPT_NAME: get-analytics
+      COLLECT_API_ENDPOINT: /api/send
+    depends_on:
+      db:
+        condition: service_healthy
+    init: true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://localhost:3000/api/heartbeat"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db:
+    image: postgres:15-alpine
+    container_name: spica-analytics-db
+    environment:
+      POSTGRES_DB: spica
+      POSTGRES_USER: spica
+      POSTGRES_PASSWORD: spica
+    volumes:
+      - spica-db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  spica-db-data:
