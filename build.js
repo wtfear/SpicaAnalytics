@@ -1,0 +1,519 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const distDir = path.join(__dirname, 'dist');
+if (!fs.existsSync(distDir)) {
+  fs.mkdirSync(distDir, { recursive: true });
+}
+
+// Copy public logo
+const logoSrc = path.join(__dirname, 'public', 'spica-logo.svg');
+const logoDest = path.join(distDir, 'spica-logo.svg');
+if (fs.existsSync(logoSrc)) {
+  fs.copyFileSync(logoSrc, logoDest);
+}
+
+const htmlContent = `<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpicaAnalytics — Sovereign Privacy-First Web & Product Telemetry | WTFear</title>
+  <meta name="description" content="Institutional GDPR-compliant web & product analytics engine. Zero cookies, zero tracking banners, real-time conversion funnels by WTFear Agency.">
+  <link rel="icon" type="image/svg+xml" href="./spica-logo.svg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              space: '#080E1A',
+              card: '#0F172A',
+              border: '#1E293B',
+              cyan: '#06B6D4',
+              sky: '#38BDF8',
+              blue: '#3B82F6',
+              violet: '#8B5CF6',
+              emerald: '#10B981',
+              amber: '#F59E0B'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #080E1A;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="bg-[#080E1A] text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black custom-scrollbar">
+
+  <!-- TOP SOVEREIGN STATUS TICKER -->
+  <div class="border-b border-cyan-950/80 bg-[#050912]/80 backdrop-blur-md px-4 py-2 text-xs flex justify-between items-center text-slate-400">
+    <div class="flex items-center gap-2">
+      <span class="flex h-2 w-2 relative">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+      </span>
+      <span class="font-mono text-cyan-400 font-semibold tracking-wider text-[11px]">SPICA REAL-TIME ENGINE: ACTIVE</span>
+      <span class="text-slate-800 hidden sm:inline">|</span>
+      <span class="hidden sm:inline text-emerald-400 font-mono text-[11px]">48 Live Visitors Active Now</span>
+      <span class="text-slate-800 hidden md:inline">|</span>
+      <span class="hidden md:inline text-slate-400 text-[11px]">Zero Cookies • 100% GDPR / CCPA Compliant</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <div id="liveClock" class="font-mono text-slate-400 text-[11px] hidden sm:block"></div>
+      <a href="https://github.com/wtfear/SpicaAnalytics" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-900 border border-cyan-950 text-cyan-300 hover:text-white text-[11px] transition-colors">
+        <i data-lucide="github" class="w-3.5 h-3.5"></i>
+        <span>wtfear/SpicaAnalytics</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="border-b border-cyan-950/60 bg-[#0B1325]/90 sticky top-0 z-40 backdrop-blur-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-800 flex items-center justify-center shadow-lg shadow-cyan-950/50 border border-cyan-400/30 shrink-0">
+          <i data-lucide="bar-chart-2" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-lg font-extrabold tracking-tight text-white">
+              SPICA<span class="text-cyan-400">ANALYTICS</span>
+            </span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40">
+              v3.5
+            </span>
+          </div>
+          <p class="text-[11px] text-cyan-300/60 hidden sm:block font-medium">Privacy-First Enterprise Web &amp; Product Telemetry</p>
+        </div>
+      </div>
+
+      <!-- Domain Switcher -->
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-slate-400 font-mono hidden md:inline">Tracked Domain:</span>
+        <select id="domainSelector" onchange="changeDomain()" class="bg-[#080E1A] border border-cyan-500/40 rounded-lg px-3 py-1.5 text-xs font-semibold text-cyan-300 focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer">
+          <option value="wtfear">🌐 wtfear.com (Main Agency Portal)</option>
+          <option value="apex">💼 apexcapital.io (FinTech Client)</option>
+          <option value="health">🏥 sovereignhealth.org (HIPAA Registry)</option>
+        </select>
+      </div>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-3 shrink-0">
+        <button onclick="triggerTrackingSnippetModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-semibold shadow-md shadow-cyan-950 flex items-center gap-1.5 transition-all">
+          <i data-lucide="code" class="w-3.5 h-3.5"></i>
+          <span>Get &lt;2KB Tracker</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO METRICS STRIP -->
+  <section class="border-b border-cyan-950/80 bg-[#0B1325]/40 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1 -->
+        <div class="p-4 rounded-xl bg-[#0F172A]/70 border border-cyan-950 hover:border-cyan-500/40 transition-colors">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+            <span>Total Pageviews (Today)</span>
+            <span class="text-emerald-400 font-mono text-[11px] flex items-center gap-0.5">
+              <i data-lucide="trending-up" class="w-3 h-3"></i> +38.6%
+            </span>
+          </div>
+          <div id="statPageviews" class="text-2xl font-extrabold text-white font-mono mt-2">48,290</div>
+          <div class="text-[11px] text-cyan-300/60 mt-1">Zero render-blocking scripts</div>
+        </div>
+
+        <!-- KPI 2 -->
+        <div class="p-4 rounded-xl bg-[#0F172A]/70 border border-cyan-950 hover:border-cyan-500/40 transition-colors">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+            <span>Unique Visitors</span>
+            <span class="text-cyan-400 font-mono text-[11px] font-semibold">Real People</span>
+          </div>
+          <div id="statVisitors" class="text-2xl font-extrabold text-cyan-400 font-mono mt-2">18,420</div>
+          <div class="text-[11px] text-cyan-300/60 mt-1">Cookieless cryptographic hashing</div>
+        </div>
+
+        <!-- KPI 3 -->
+        <div class="p-4 rounded-xl bg-[#0F172A]/70 border border-cyan-950 hover:border-cyan-500/40 transition-colors">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+            <span>Average Session Duration</span>
+            <span class="text-emerald-400 font-mono text-[11px]">High Engagement</span>
+          </div>
+          <div id="statDuration" class="text-2xl font-extrabold text-emerald-400 font-mono mt-2">3m 42s</div>
+          <div class="text-[11px] text-cyan-300/60 mt-1">Bounce Rate: 28.4%</div>
+        </div>
+
+        <!-- KPI 4 -->
+        <div class="p-4 rounded-xl bg-[#0F172A]/70 border border-cyan-950 hover:border-cyan-500/40 transition-colors">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+            <span>Active Live Right Now</span>
+            <span class="text-emerald-400 font-mono text-[11px] flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> LIVE
+            </span>
+          </div>
+          <div id="statLive" class="text-2xl font-extrabold text-white font-mono mt-2 flex items-baseline gap-2">
+            48
+            <span class="text-xs font-normal text-emerald-400">concurrent</span>
+          </div>
+          <div class="text-[11px] text-cyan-300/60 mt-1">Real-time WebSocket streaming</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+
+    <!-- REAL-TIME GRAPH SECTION -->
+    <div class="p-6 rounded-2xl bg-[#0F172A]/80 border border-cyan-950 shadow-2xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i data-lucide="activity" class="w-5 h-5 text-cyan-400"></i>
+            <span>Real-Time Traffic &amp; Pageviews (24 Hours)</span>
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">Granular hourly traffic breakdown with zero bot spoofing</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="changeTimeframe('24h')" class="px-3 py-1 rounded-lg text-xs font-semibold bg-cyan-600 text-white">24h</button>
+          <button onclick="changeTimeframe('7d')" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-900 text-slate-400 hover:text-white">7d</button>
+          <button onclick="changeTimeframe('30d')" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-900 text-slate-400 hover:text-white">30d</button>
+        </div>
+      </div>
+
+      <div class="h-72 w-full">
+        <canvas id="trafficChart"></canvas>
+      </div>
+    </div>
+
+    <!-- 4-WAY BREAKDOWN GRID (Pages, Referrers, Geolocation, Browsers) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Top Pages -->
+      <div class="p-5 rounded-2xl bg-[#0F172A]/70 border border-cyan-950 space-y-3">
+        <div class="flex items-center justify-between border-b border-cyan-950/80 pb-2">
+          <span class="text-xs font-bold text-white flex items-center gap-1.5 font-mono uppercase tracking-wider">
+            <i data-lucide="file-text" class="w-4 h-4 text-cyan-400"></i> Top Pages
+          </span>
+          <span class="text-[11px] font-mono text-slate-400">Views</span>
+        </div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/</span> <span class="font-mono text-cyan-400 font-bold">18,420</span></div>
+          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/pricing</span> <span class="font-mono text-cyan-400 font-bold">8,910</span></div>
+          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/agents/swarm</span> <span class="font-mono text-cyan-400 font-bold">6,420</span></div>
+          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/docs/architecture</span> <span class="font-mono text-cyan-400 font-bold">5,110</span></div>
+          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/enterprise</span> <span class="font-mono text-cyan-400 font-bold">4,890</span></div>
+          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/portal/login</span> <span class="font-mono text-cyan-400 font-bold">4,540</span></div>
+        </div>
+      </div>
+
+      <!-- Referrers -->
+      <div class="p-5 rounded-2xl bg-[#0F172A]/70 border border-cyan-950 space-y-3">
+        <div class="flex items-center justify-between border-b border-cyan-950/80 pb-2">
+          <span class="text-xs font-bold text-white flex items-center gap-1.5 font-mono uppercase tracking-wider">
+            <i data-lucide="link" class="w-4 h-4 text-blue-400"></i> Referrers
+          </span>
+          <span class="text-[11px] font-mono text-slate-400">Visitors</span>
+        </div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between items-center"><span class="text-slate-300">Google Organic</span> <span class="font-mono text-blue-400 font-bold">7,840</span></div>
+          <div class="flex justify-between items-center"><span class="text-slate-300">Direct / Bookmark</span> <span class="font-mono text-blue-400 font-bold">4,620</span></div>
+          <div class="flex justify-between items-center"><span class="text-slate-300">GitHub (wtfear)</span> <span class="font-mono text-blue-400 font-bold">3,120</span></div>
+          <div class="flex justify-between items-center"><span class="text-slate-300">LinkedIn Corporate</span> <span class="font-mono text-blue-400 font-bold">1,840</span></div>
+          <div class="flex justify-between items-center"><span class="text-slate-300">Twitter / X</span> <span class="font-mono text-blue-400 font-bold">980</span></div>
+          <div class="flex justify-between items-center"><span class="text-slate-300">Hacker News</span> <span class="font-mono text-blue-400 font-bold">620</span></div>
+        </div>
+      </div>
+
+      <!-- Geolocation -->
+      <div class="p-5 rounded-2xl bg-[#0F172A]/70 border border-cyan-950 space-y-3">
+        <div class="flex items-center justify-between border-b border-cyan-950/80 pb-2">
+          <span class="text-xs font-bold text-white flex items-center gap-1.5 font-mono uppercase tracking-wider">
+            <i data-lucide="globe" class="w-4 h-4 text-emerald-400"></i> Countries
+          </span>
+          <span class="text-[11px] font-mono text-slate-400">Share</span>
+        </div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between items-center"><span>🇺🇸 United States</span> <span class="font-mono text-emerald-400 font-bold">42.4%</span></div>
+          <div class="flex justify-between items-center"><span>🇩🇪 Germany</span> <span class="font-mono text-emerald-400 font-bold">18.2%</span></div>
+          <div class="flex justify-between items-center"><span>🇬🇧 United Kingdom</span> <span class="font-mono text-emerald-400 font-bold">14.1%</span></div>
+          <div class="flex justify-between items-center"><span>🇯🇵 Japan</span> <span class="font-mono text-emerald-400 font-bold">9.3%</span></div>
+          <div class="flex justify-between items-center"><span>🇸🇬 Singapore</span> <span class="font-mono text-emerald-400 font-bold">7.2%</span></div>
+          <div class="flex justify-between items-center"><span>🇮🇳 India</span> <span class="font-mono text-emerald-400 font-bold">5.8%</span></div>
+        </div>
+      </div>
+
+      <!-- Devices & Browsers -->
+      <div class="p-5 rounded-2xl bg-[#0F172A]/70 border border-cyan-950 space-y-3">
+        <div class="flex items-center justify-between border-b border-cyan-950/80 pb-2">
+          <span class="text-xs font-bold text-white flex items-center gap-1.5 font-mono uppercase tracking-wider">
+            <i data-lucide="smartphone" class="w-4 h-4 text-purple-400"></i> Devices &amp; OS
+          </span>
+          <span class="text-[11px] font-mono text-slate-400">Share</span>
+        </div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between items-center"><span>🖥️ Desktop (macOS/Win)</span> <span class="font-mono text-purple-400 font-bold">72.4%</span></div>
+          <div class="flex justify-between items-center"><span>📱 Mobile (iOS/Android)</span> <span class="font-mono text-purple-400 font-bold">25.6%</span></div>
+          <div class="flex justify-between items-center"><span>🌐 Chrome</span> <span class="font-mono text-purple-400 font-bold">64.2%</span></div>
+          <div class="flex justify-between items-center"><span>🧭 Safari</span> <span class="font-mono text-purple-400 font-bold">22.8%</span></div>
+          <div class="flex justify-between items-center"><span>🦊 Firefox</span> <span class="font-mono text-purple-400 font-bold">8.4%</span></div>
+          <div class="flex justify-between items-center"><span>🛡️ Brave (Unblocked)</span> <span class="font-mono text-purple-400 font-bold">4.6%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE STREAMING REAL-TIME VISITOR LOG -->
+    <div class="rounded-2xl border border-cyan-950 bg-[#0F172A]/80 overflow-hidden shadow-2xl">
+      <div class="p-4 border-b border-cyan-950 bg-[#0B1325] flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="radio" class="w-4 h-4 text-cyan-400 animate-pulse"></i>
+          <span class="text-xs font-mono font-bold uppercase text-white">Live Visitor Stream (Real-Time Ingestion)</span>
+        </div>
+        <span class="text-[11px] font-mono text-emerald-400">Bypasses uBlock &amp; Brave Shields</span>
+      </div>
+
+      <div id="liveStreamContainer" class="divide-y divide-cyan-950/60 font-mono text-xs">
+        <!-- Dynamically populated via JavaScript -->
+      </div>
+    </div>
+
+    <!-- THE WTFEAR ADVANTAGE (Google Analytics 4 vs SpicaAnalytics) -->
+    <div class="rounded-2xl border border-cyan-950 bg-[#0B1325] p-8 space-y-6">
+      <div class="text-center max-w-2xl mx-auto">
+        <span class="px-3 py-1 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-500/40 text-xs font-mono font-semibold">
+          ENTERPRISE COMPLIANCE &amp; SOVEREIGNTY
+        </span>
+        <h3 class="text-2xl font-extrabold text-white mt-3">Why Enterprises Pay $25k to Replace Google Analytics 4</h3>
+        <p class="text-xs text-slate-400 mt-1">
+          Google Analytics 4 is banned by EU data regulators, forces annoying cookie consent banners, and loses 35%+ of traffic to ad-blockers.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs font-medium">
+          <thead class="bg-[#080E1A] text-slate-300 font-mono uppercase tracking-wider border-b border-cyan-950">
+            <tr>
+              <th class="py-3 px-4">Feature / Metric</th>
+              <th class="py-3 px-4 text-cyan-400 font-bold">SpicaAnalytics (WTFear)</th>
+              <th class="py-3 px-4 text-slate-400">Google Analytics 4 (GA4)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-cyan-950/80">
+            <tr>
+              <td class="py-3 px-4 text-white font-semibold">Cookie Consent Banner Required?</td>
+              <td class="py-3 px-4 text-emerald-400 font-bold">NO (Zero Cookies Collected)</td>
+              <td class="py-3 px-4 text-rose-400">YES (Legally Mandated in EU/CA)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-white font-semibold">Tracker Script Size</td>
+              <td class="py-3 px-4 text-emerald-400 font-mono font-bold">&lt; 2 KB (Sub-millisecond)</td>
+              <td class="py-3 px-4 text-rose-400 font-mono">45 KB+ (Harms Core Web Vitals)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-white font-semibold">Ad-Blocker Resilience</td>
+              <td class="py-3 px-4 text-emerald-400 font-bold">100% Captured via Reverse Proxy</td>
+              <td class="py-3 px-4 text-rose-400">35% - 45% Traffic Blocked</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-white font-semibold">Data Ownership</td>
+              <td class="py-3 px-4 text-emerald-400 font-bold">100% Client / Agency Sovereign</td>
+              <td class="py-3 px-4 text-slate-400">Google Cloud (Used for Ad Targeting)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- SNIPPET MODAL -->
+  <div id="snippetModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[#0F172A] border border-cyan-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-cyan-950 pb-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i data-lucide="code" class="w-4 h-4 text-cyan-400"></i>
+          <span>Featherweight &lt;2KB Tracking Script</span>
+        </h3>
+        <button onclick="closeModal('snippetModal')" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <p class="text-xs text-slate-300">Embed this single line into the &lt;head&gt; of your website. Zero cookies, zero external dependencies:</p>
+      <div class="p-3 rounded-lg bg-[#080E1A] border border-cyan-950 font-mono text-xs text-cyan-300 select-all overflow-x-auto">
+        &lt;script defer src="https://spicaanalytics.vercel.app/telemetry.js" data-website-id="spica_live_948a02"&gt;&lt;/script&gt;
+      </div>
+      <div class="flex justify-end pt-3 border-t border-cyan-950">
+        <button onclick="closeModal('snippetModal')" class="px-4 py-2 rounded-lg bg-cyan-600 text-xs text-white font-semibold">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-cyan-950/80 bg-[#050912] py-8 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-300">SPICAANALYTICS</span>
+        <span>— Sovereign Privacy-First Web &amp; Product Telemetry</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/wtfear/SpicaAnalytics" target="_blank" class="hover:text-cyan-400 transition-colors">GitHub Repository</a>
+        <a href="https://github.com/wtfear" target="_blank" class="hover:text-cyan-400 transition-colors">WTFear Organization</a>
+        <span>MIT License</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const LIVE_FEED = [
+      { time: "14:45:02", country: "🇺🇸 USA", page: "/pricing", device: "Desktop • Chrome", action: "Viewed Enterprise Retainers" },
+      { time: "14:44:48", country: "🇩🇪 Germany", page: "/agents/swarm", device: "Desktop • Firefox", action: "Inspected LangGraph Checkpoints" },
+      { time: "14:44:19", country: "🇬🇧 UK", page: "/", device: "Mobile • Safari", action: "Scrolled to Architecture Comparison" },
+      { time: "14:43:55", country: "🇯🇵 Japan", page: "/docs/architecture", device: "Desktop • Chrome", action: "Downloaded SDK Telemetry Spec" },
+      { time: "14:43:12", country: "🇸🇬 Singapore", page: "/enterprise", device: "Desktop • Edge", action: "Triggered Contact Webhook" }
+    ];
+
+    function renderLiveFeed() {
+      const container = document.getElementById("liveStreamContainer");
+      container.innerHTML = LIVE_FEED.map(item => \`
+        <div class="p-3.5 hover:bg-[#0B1325] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div class="flex items-center gap-3">
+            <span class="text-slate-500 text-[11px]">\${item.time}</span>
+            <span class="text-slate-300 font-bold">\${item.country}</span>
+            <span class="text-cyan-400 font-semibold">\${item.page}</span>
+            <span class="text-slate-400 text-xs hidden md:inline">• \${item.action}</span>
+          </div>
+          <span class="text-slate-500 text-[11px] font-sans">\${item.device}</span>
+        </div>
+      \`).join('');
+    }
+
+    function triggerTrackingSnippetModal() {
+      document.getElementById("snippetModal").classList.remove("hidden");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add("hidden");
+    }
+
+    function changeDomain() {
+      const dom = document.getElementById("domainSelector").value;
+      if (dom === "apex") {
+        document.getElementById("statPageviews").innerText = "32,450";
+        document.getElementById("statVisitors").innerText = "12,190";
+        document.getElementById("statDuration").innerText = "4m 18s";
+        document.getElementById("statLive").innerHTML = "112 <span class='text-xs font-normal text-emerald-400'>concurrent</span>";
+      } else if (dom === "health") {
+        document.getElementById("statPageviews").innerText = "8,210";
+        document.getElementById("statVisitors").innerText = "2,840";
+        document.getElementById("statDuration").innerText = "2m 54s";
+        document.getElementById("statLive").innerHTML = "26 <span class='text-xs font-normal text-emerald-400'>concurrent</span>";
+      } else {
+        document.getElementById("statPageviews").innerText = "48,290";
+        document.getElementById("statVisitors").innerText = "18,420";
+        document.getElementById("statDuration").innerText = "3m 42s";
+        document.getElementById("statLive").innerHTML = "48 <span class='text-xs font-normal text-emerald-400'>concurrent</span>";
+      }
+    }
+
+    let chartInstance = null;
+    function initTrafficChart() {
+      const ctx = document.getElementById('trafficChart');
+      if (!ctx) return;
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+          datasets: [{
+            label: 'Pageviews',
+            data: [1200, 850, 1420, 4890, 8420, 7150, 6800, 5200],
+            borderColor: '#06B6D4',
+            backgroundColor: 'rgba(6, 182, 212, 0.1)',
+            fill: true,
+            tension: 0.4
+          }, {
+            label: 'Unique Visitors',
+            data: [420, 310, 680, 2150, 4120, 3450, 2900, 2400],
+            borderColor: '#3B82F6',
+            backgroundColor: 'rgba(59, 130, 246, 0.05)',
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748B' } },
+            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748B' } }
+          },
+          plugins: {
+            legend: { labels: { color: '#94A3B8', font: { family: 'Plus Jakarta Sans', size: 11 } } }
+          }
+        }
+      });
+    }
+
+    function updateClock() {
+      const clockEl = document.getElementById("liveClock");
+      if (clockEl) {
+        const now = new Date();
+        clockEl.innerText = now.toUTCString().replace("GMT", "UTC");
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      renderLiveFeed();
+      initTrafficChart();
+      updateClock();
+      setInterval(updateClock, 1000);
+    });
+  </script>
+</body>
+</html>`;
+
+// Write to dist/index.html and root index.html
+fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent, 'utf-8');
+fs.writeFileSync(path.join(__dirname, 'index.html'), htmlContent, 'utf-8');
+
+console.log('✅ SpicaAnalytics distribution successfully built into dist/index.html AND root index.html');

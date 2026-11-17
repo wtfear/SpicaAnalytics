@@ -23,8 +23,12 @@ next-env.d.ts
 /public/recorder.js
 /public/openapi.json
 /geo
-/dist
-/packages/*/dist
+# /dist
+!dist
+!dist/**
+/packages/*# /dist
+!dist
+!dist/**
 /generated
 /src/generated
 pm2.yml
