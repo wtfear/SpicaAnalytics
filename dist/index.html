@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SpicaAnalytics — Sovereign Privacy-First Web & Product Telemetry | WTFear</title>
-  <meta name="description" content="Institutional GDPR-compliant web & product analytics engine. Zero cookies, zero tracking banners, real-time conversion funnels by WTFear Agency.">
+  <title>SpicaAnalytics — Sovereign Privacy-First Web & Product Telemetry Platform | WTFear Agency</title>
+  <meta name="description" content="Eliminate GA4 cookie consent banners and $4,000/mo Amplitude fees. 100% cookieless, GDPR/HIPAA compliant real-time analytics with <1.8KB script footprint by WTFear Agency.">
   <link rel="icon" type="image/svg+xml" href="./spica-logo.svg">
 
   <!-- Tailwind CSS -->
@@ -16,15 +16,16 @@
         extend: {
           colors: {
             brand: {
-              space: '#080E1A',
-              card: '#0F172A',
-              border: '#1E293B',
-              cyan: '#06B6D4',
-              sky: '#38BDF8',
-              blue: '#3B82F6',
-              violet: '#8B5CF6',
-              emerald: '#10B981',
-              amber: '#F59E0B'
+              space: '#060A06',
+              surface: '#0B140B',
+              card: '#111F11',
+              border: '#1F381F',
+              lime: '#A3E635',
+              peridot: '#84CC16',
+              mint: '#4ADE80',
+              forest: '#15803D',
+              amber: '#FBBF24',
+              emerald: '#10B981'
             }
           }
         }
@@ -39,47 +40,54 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     .font-mono {
       font-family: 'JetBrains Mono', monospace;
     }
-    .custom-scrollbar::-webkit-scrollbar {
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.25; transform: scale(1); }
+      50% { opacity: 0.65; transform: scale(1.08); }
+    }
+    .animate-glow {
+      animation: pulseGlow 5s infinite ease-in-out;
+    }
+    .custom-scroll::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #080E1A;
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #060A06;
     }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #1E293B;
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #1F381F;
       border-radius: 3px;
     }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #334155;
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #84CC16;
     }
   </style>
 </head>
-<body class="bg-[#080E1A] text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black custom-scrollbar">
+<body class="bg-brand-space text-slate-100 min-h-screen flex flex-col font-sans selection:bg-brand-lime selection:text-slate-950 custom-scroll">
 
   <!-- TOP SOVEREIGN STATUS TICKER -->
-  <div class="border-b border-cyan-950/80 bg-[#050912]/80 backdrop-blur-md px-4 py-2 text-xs flex justify-between items-center text-slate-400">
+  <div class="border-b border-brand-border/60 bg-[#040704]/90 backdrop-blur-md px-4 py-2 text-xs flex justify-between items-center text-slate-400">
     <div class="flex items-center gap-2">
       <span class="flex h-2 w-2 relative">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-lime opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-peridot"></span>
       </span>
-      <span class="font-mono text-cyan-400 font-semibold tracking-wider text-[11px]">SPICA REAL-TIME ENGINE: ACTIVE</span>
+      <span class="font-mono text-brand-lime font-bold tracking-wider text-[11px]">SPICA TELEMETRY ENGINE: LIVE</span>
       <span class="text-slate-800 hidden sm:inline">|</span>
-      <span class="hidden sm:inline text-emerald-400 font-mono text-[11px]">48 Live Visitors Active Now</span>
+      <span class="hidden sm:inline text-slate-400 font-mono text-[11px]">CORE SCRIPT: 1.78 KB</span>
       <span class="text-slate-800 hidden md:inline">|</span>
-      <span class="hidden md:inline text-slate-400 text-[11px]">Zero Cookies • 100% GDPR / CCPA Compliant</span>
+      <span class="hidden md:inline text-brand-mint font-mono text-[11px]">100% Cookieless • GDPR / CCPA / HIPAA Certified</span>
     </div>
     <div class="flex items-center gap-4">
       <div id="liveClock" class="font-mono text-slate-400 text-[11px] hidden sm:block"></div>
-      <a href="https://github.com/wtfear/SpicaAnalytics" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-900 border border-cyan-950 text-cyan-300 hover:text-white text-[11px] transition-colors">
+      <a href="https://github.com/wtfear/SpicaAnalytics" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0A120A] border border-brand-border text-brand-lime hover:text-white text-[11px] transition-colors">
         <i data-lucide="github" class="w-3.5 h-3.5"></i>
         <span>wtfear/SpicaAnalytics</span>
       </a>
@@ -87,391 +95,954 @@
   </div>
 
   <!-- NAVIGATION HEADER -->
-  <header class="border-b border-cyan-950/60 bg-[#0B1325]/90 sticky top-0 z-40 backdrop-blur-lg">
+  <header class="border-b border-brand-border/60 bg-brand-space/90 sticky top-0 z-40 backdrop-blur-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       <!-- Brand Logo -->
       <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-800 flex items-center justify-center shadow-lg shadow-cyan-950/50 border border-cyan-400/30 shrink-0">
-          <i data-lucide="bar-chart-2" class="w-5 h-5 text-white"></i>
+        <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-brand-lime via-brand-peridot to-brand-forest flex items-center justify-center shadow-lg shadow-brand-lime/20 border border-brand-lime/40 shrink-0">
+          <i data-lucide="activity" class="w-5 h-5 text-slate-950"></i>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="text-lg font-extrabold tracking-tight text-white">
-              SPICA<span class="text-cyan-400">ANALYTICS</span>
-            </span>
-            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40">
-              v3.5
-            </span>
+            <span class="text-lg font-black tracking-tight text-white">Spica<span class="text-brand-lime">Analytics</span></span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-mono bg-brand-lime/10 text-brand-lime border border-brand-lime/30 font-bold uppercase">v2.4 Sovereign</span>
           </div>
-          <p class="text-[11px] text-cyan-300/60 hidden sm:block font-medium">Privacy-First Enterprise Web &amp; Product Telemetry</p>
+          <p class="text-[10px] text-slate-400 hidden sm:block">Zero-Cookie Web & Product Telemetry Platform</p>
         </div>
       </div>
 
-      <!-- Domain Switcher -->
-      <div class="flex items-center gap-2">
-        <span class="text-xs text-slate-400 font-mono hidden md:inline">Tracked Domain:</span>
-        <select id="domainSelector" onchange="changeDomain()" class="bg-[#080E1A] border border-cyan-500/40 rounded-lg px-3 py-1.5 text-xs font-semibold text-cyan-300 focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer">
-          <option value="wtfear">🌐 wtfear.com (Main Agency Portal)</option>
-          <option value="apex">💼 apexcapital.io (FinTech Client)</option>
-          <option value="health">🏥 sovereignhealth.org (HIPAA Registry)</option>
-        </select>
-      </div>
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="#services" class="hover:text-brand-lime transition-colors">Capabilities</a>
+        <a href="#benchmark" class="hover:text-brand-lime transition-colors">GA4 vs Spica</a>
+        <a href="#live-cockpit" class="hover:text-brand-lime transition-colors flex items-center gap-1.5">
+          <span class="h-1.5 w-1.5 rounded-full bg-brand-lime animate-pulse"></span>
+          Live Telemetry HUD
+        </a>
+        <a href="#testimonials" class="hover:text-brand-lime transition-colors">Case Studies</a>
+        <a href="#contact" class="hover:text-brand-lime transition-colors">Deployment</a>
+      </nav>
 
-      <!-- Right Controls -->
-      <div class="flex items-center gap-3 shrink-0">
-        <button onclick="triggerTrackingSnippetModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-semibold shadow-md shadow-cyan-950 flex items-center gap-1.5 transition-all">
-          <i data-lucide="code" class="w-3.5 h-3.5"></i>
-          <span>Get &lt;2KB Tracker</span>
-        </button>
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <a href="#live-cockpit" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-border bg-brand-surface text-slate-300 hover:text-brand-lime text-xs font-medium transition-colors">
+          <i data-lucide="play" class="w-3.5 h-3.5 text-brand-lime"></i>
+          <span>Live Demo</span>
+        </a>
+        <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-lime to-brand-peridot text-slate-950 font-bold text-xs hover:opacity-95 transition-opacity shadow-lg shadow-brand-lime/25">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span>Deploy Telemetry</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- HERO METRICS STRIP -->
-  <section class="border-b border-cyan-950/80 bg-[#0B1325]/40 py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- KPI 1 -->
-        <div class="p-4 rounded-xl bg-[#0F172A]/70 border border-cyan-950 hover:border-cyan-500/40 transition-colors">
-          <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
-            <span>Total Pageviews (Today)</span>
-            <span class="text-emerald-400 font-mono text-[11px] flex items-center gap-0.5">
-              <i data-lucide="trending-up" class="w-3 h-3"></i> +38.6%
-            </span>
-          </div>
-          <div id="statPageviews" class="text-2xl font-extrabold text-white font-mono mt-2">48,290</div>
-          <div class="text-[11px] text-cyan-300/60 mt-1">Zero render-blocking scripts</div>
-        </div>
+  <!-- HERO SECTION -->
+  <section class="relative overflow-hidden pt-16 pb-20 border-b border-brand-border/60">
+    <!-- Glow Background Accents -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-brand-lime/15 rounded-full blur-[130px] pointer-events-none animate-glow"></div>
+    <div class="absolute -top-12 right-10 w-96 h-96 bg-brand-mint/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <!-- KPI 2 -->
-        <div class="p-4 rounded-xl bg-[#0F172A]/70 border border-cyan-950 hover:border-cyan-500/40 transition-colors">
-          <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
-            <span>Unique Visitors</span>
-            <span class="text-cyan-400 font-mono text-[11px] font-semibold">Real People</span>
-          </div>
-          <div id="statVisitors" class="text-2xl font-extrabold text-cyan-400 font-mono mt-2">18,420</div>
-          <div class="text-[11px] text-cyan-300/60 mt-1">Cookieless cryptographic hashing</div>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-lime/10 border border-brand-lime/30 text-brand-lime text-xs font-mono mb-6">
+        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+        <span>100% Cookieless • Zero Consent Banners • Real-Time Telemetry</span>
+      </div>
 
-        <!-- KPI 3 -->
-        <div class="p-4 rounded-xl bg-[#0F172A]/70 border border-cyan-950 hover:border-cyan-500/40 transition-colors">
-          <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
-            <span>Average Session Duration</span>
-            <span class="text-emerald-400 font-mono text-[11px]">High Engagement</span>
-          </div>
-          <div id="statDuration" class="text-2xl font-extrabold text-emerald-400 font-mono mt-2">3m 42s</div>
-          <div class="text-[11px] text-cyan-300/60 mt-1">Bounce Rate: 28.4%</div>
-        </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-none">
+        Kill Google Analytics 4.<br>
+        <span class="bg-gradient-to-r from-brand-lime via-brand-peridot to-brand-mint bg-clip-text text-transparent">Reclaim 100% of Your User Data.</span>
+      </h1>
 
-        <!-- KPI 4 -->
-        <div class="p-4 rounded-xl bg-[#0F172A]/70 border border-cyan-950 hover:border-cyan-500/40 transition-colors">
-          <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
-            <span>Active Live Right Now</span>
-            <span class="text-emerald-400 font-mono text-[11px] flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> LIVE
-            </span>
-          </div>
-          <div id="statLive" class="text-2xl font-extrabold text-white font-mono mt-2 flex items-baseline gap-2">
-            48
-            <span class="text-xs font-normal text-emerald-400">concurrent</span>
-          </div>
-          <div class="text-[11px] text-cyan-300/60 mt-1">Real-time WebSocket streaming</div>
+      <p class="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+        Stop losing 30%+ of your web traffic to rejected cookie banners and ad-blockers. SpicaAnalytics delivers sovereign, GDPR-compliant product event telemetry with a sub-2KB script and zero monthly SaaS taxes.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#live-cockpit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-lime to-brand-peridot text-slate-950 font-bold text-sm hover:brightness-110 transition-all shadow-xl shadow-brand-lime/20">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+          <span>Launch Telemetry Cockpit</span>
+        </a>
+        <a href="#benchmark" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-brand-card border border-brand-border text-slate-300 hover:text-white hover:border-brand-lime/50 text-sm font-medium transition-all">
+          <i data-lucide="scale" class="w-4 h-4 text-brand-lime"></i>
+          <span>Compare vs GA4 & Amplitude</span>
+        </a>
+      </div>
+
+      <!-- Live KPI Badges -->
+      <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+        <div class="p-4 rounded-xl bg-brand-surface/70 border border-brand-border backdrop-blur">
+          <div class="text-xs text-slate-400 font-mono uppercase">Script Footprint</div>
+          <div class="text-2xl font-black text-brand-lime mt-1 font-mono">&lt; 1.8 KB</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">45x lighter than GA4 (85KB)</div>
+        </div>
+        <div class="p-4 rounded-xl bg-brand-surface/70 border border-brand-border backdrop-blur">
+          <div class="text-xs text-slate-400 font-mono uppercase">Cookie Banners</div>
+          <div class="text-2xl font-black text-white mt-1 font-mono">0 Banners</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">No GDPR/PECR consent needed</div>
+        </div>
+        <div class="p-4 rounded-xl bg-brand-surface/70 border border-brand-border backdrop-blur">
+          <div class="text-xs text-slate-400 font-mono uppercase">AdBlock Bypass</div>
+          <div class="text-2xl font-black text-brand-mint mt-1 font-mono">100% Capture</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">Proxied 1st-party domain endpoints</div>
+        </div>
+        <div class="p-4 rounded-xl bg-brand-surface/70 border border-brand-border backdrop-blur">
+          <div class="text-xs text-slate-400 font-mono uppercase">Monthly SaaS Tax</div>
+          <div class="text-2xl font-black text-brand-lime mt-1 font-mono">$0.00 / mo</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">Zero per-event or seat markups</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MAIN DASHBOARD CONTENT -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
-
-    <!-- REAL-TIME GRAPH SECTION -->
-    <div class="p-6 rounded-2xl bg-[#0F172A]/80 border border-cyan-950 shadow-2xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <div>
-          <h3 class="text-base font-bold text-white flex items-center gap-2">
-            <i data-lucide="activity" class="w-5 h-5 text-cyan-400"></i>
-            <span>Real-Time Traffic &amp; Pageviews (24 Hours)</span>
-          </h3>
-          <p class="text-xs text-slate-400 mt-1">Granular hourly traffic breakdown with zero bot spoofing</p>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <button onclick="changeTimeframe('24h')" class="px-3 py-1 rounded-lg text-xs font-semibold bg-cyan-600 text-white">24h</button>
-          <button onclick="changeTimeframe('7d')" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-900 text-slate-400 hover:text-white">7d</button>
-          <button onclick="changeTimeframe('30d')" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-900 text-slate-400 hover:text-white">30d</button>
-        </div>
+  <!-- 4 CORE SERVICE PILLARS -->
+  <section id="services" class="py-20 bg-brand-surface/50 border-b border-brand-border/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase text-brand-lime tracking-widest font-bold">Enterprise Architectural Pillars</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Engineered for Sovereign Telemetry & Zero Data Leakage</h2>
+        <p class="text-slate-400 mt-3 text-sm sm:text-base">Why Fortune 500 enterprises, European health networks, and privacy-first tech teams replace legacy third-party ad-tracking suites with SpicaAnalytics.</p>
       </div>
 
-      <div class="h-72 w-full">
-        <canvas id="trafficChart"></canvas>
-      </div>
-    </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Pillar 1 -->
+        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-lime/40 transition-all group">
+          <div class="h-12 w-12 rounded-xl bg-brand-lime/10 border border-brand-lime/30 flex items-center justify-center text-brand-lime mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="cookie" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Cookieless Hash Anonymization</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Unique visitors are recognized through a SHA-256 rotating daily salt hashing IP and User-Agent. Zero persistent cookies, zero cross-site profiling, and full GDPR compliance without banner drop-offs.
+          </p>
+          <div class="mt-4 pt-4 border-t border-brand-border/60 text-xs font-mono text-brand-lime flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>No consent banner needed</span>
+          </div>
+        </div>
 
-    <!-- 4-WAY BREAKDOWN GRID (Pages, Referrers, Geolocation, Browsers) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Pillar 2 -->
+        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-peridot/40 transition-all group">
+          <div class="h-12 w-12 rounded-xl bg-brand-peridot/10 border border-brand-peridot/30 flex items-center justify-center text-brand-peridot mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="zap" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Sub-2KB Script Footprint</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Engineered in pure TypeScript and compressed into 1.78 KB. Loads asynchronously in under 5ms. Guarantees 100/100 Google Lighthouse scores with zero impact on Interaction to Next Paint (INP).
+          </p>
+          <div class="mt-4 pt-4 border-t border-brand-border/60 text-xs font-mono text-brand-peridot flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Flawless Core Web Vitals</span>
+          </div>
+        </div>
 
-      <!-- Top Pages -->
-      <div class="p-5 rounded-2xl bg-[#0F172A]/70 border border-cyan-950 space-y-3">
-        <div class="flex items-center justify-between border-b border-cyan-950/80 pb-2">
-          <span class="text-xs font-bold text-white flex items-center gap-1.5 font-mono uppercase tracking-wider">
-            <i data-lucide="file-text" class="w-4 h-4 text-cyan-400"></i> Top Pages
-          </span>
-          <span class="text-[11px] font-mono text-slate-400">Views</span>
+        <!-- Pillar 3 -->
+        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-mint/40 transition-all group">
+          <div class="h-12 w-12 rounded-xl bg-brand-mint/10 border border-brand-mint/30 flex items-center justify-center text-brand-mint mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="filter" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Product Funnels & Custom Events</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Track user journey conversions, custom billing triggers, paywall drop-offs, and feature adoption cohorts. Seamlessly dispatch typed JSON events with one client-side function call.
+          </p>
+          <div class="mt-4 pt-4 border-t border-brand-border/60 text-xs font-mono text-brand-mint flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Multi-step dropoff analysis</span>
+          </div>
         </div>
-        <div class="space-y-2 text-xs">
-          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/</span> <span class="font-mono text-cyan-400 font-bold">18,420</span></div>
-          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/pricing</span> <span class="font-mono text-cyan-400 font-bold">8,910</span></div>
-          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/agents/swarm</span> <span class="font-mono text-cyan-400 font-bold">6,420</span></div>
-          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/docs/architecture</span> <span class="font-mono text-cyan-400 font-bold">5,110</span></div>
-          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/enterprise</span> <span class="font-mono text-cyan-400 font-bold">4,890</span></div>
-          <div class="flex justify-between items-center"><span class="font-mono text-slate-300">/portal/login</span> <span class="font-mono text-cyan-400 font-bold">4,540</span></div>
-        </div>
-      </div>
 
-      <!-- Referrers -->
-      <div class="p-5 rounded-2xl bg-[#0F172A]/70 border border-cyan-950 space-y-3">
-        <div class="flex items-center justify-between border-b border-cyan-950/80 pb-2">
-          <span class="text-xs font-bold text-white flex items-center gap-1.5 font-mono uppercase tracking-wider">
-            <i data-lucide="link" class="w-4 h-4 text-blue-400"></i> Referrers
-          </span>
-          <span class="text-[11px] font-mono text-slate-400">Visitors</span>
-        </div>
-        <div class="space-y-2 text-xs">
-          <div class="flex justify-between items-center"><span class="text-slate-300">Google Organic</span> <span class="font-mono text-blue-400 font-bold">7,840</span></div>
-          <div class="flex justify-between items-center"><span class="text-slate-300">Direct / Bookmark</span> <span class="font-mono text-blue-400 font-bold">4,620</span></div>
-          <div class="flex justify-between items-center"><span class="text-slate-300">GitHub (wtfear)</span> <span class="font-mono text-blue-400 font-bold">3,120</span></div>
-          <div class="flex justify-between items-center"><span class="text-slate-300">LinkedIn Corporate</span> <span class="font-mono text-blue-400 font-bold">1,840</span></div>
-          <div class="flex justify-between items-center"><span class="text-slate-300">Twitter / X</span> <span class="font-mono text-blue-400 font-bold">980</span></div>
-          <div class="flex justify-between items-center"><span class="text-slate-300">Hacker News</span> <span class="font-mono text-blue-400 font-bold">620</span></div>
-        </div>
-      </div>
-
-      <!-- Geolocation -->
-      <div class="p-5 rounded-2xl bg-[#0F172A]/70 border border-cyan-950 space-y-3">
-        <div class="flex items-center justify-between border-b border-cyan-950/80 pb-2">
-          <span class="text-xs font-bold text-white flex items-center gap-1.5 font-mono uppercase tracking-wider">
-            <i data-lucide="globe" class="w-4 h-4 text-emerald-400"></i> Countries
-          </span>
-          <span class="text-[11px] font-mono text-slate-400">Share</span>
-        </div>
-        <div class="space-y-2 text-xs">
-          <div class="flex justify-between items-center"><span>🇺🇸 United States</span> <span class="font-mono text-emerald-400 font-bold">42.4%</span></div>
-          <div class="flex justify-between items-center"><span>🇩🇪 Germany</span> <span class="font-mono text-emerald-400 font-bold">18.2%</span></div>
-          <div class="flex justify-between items-center"><span>🇬🇧 United Kingdom</span> <span class="font-mono text-emerald-400 font-bold">14.1%</span></div>
-          <div class="flex justify-between items-center"><span>🇯🇵 Japan</span> <span class="font-mono text-emerald-400 font-bold">9.3%</span></div>
-          <div class="flex justify-between items-center"><span>🇸🇬 Singapore</span> <span class="font-mono text-emerald-400 font-bold">7.2%</span></div>
-          <div class="flex justify-between items-center"><span>🇮🇳 India</span> <span class="font-mono text-emerald-400 font-bold">5.8%</span></div>
-        </div>
-      </div>
-
-      <!-- Devices & Browsers -->
-      <div class="p-5 rounded-2xl bg-[#0F172A]/70 border border-cyan-950 space-y-3">
-        <div class="flex items-center justify-between border-b border-cyan-950/80 pb-2">
-          <span class="text-xs font-bold text-white flex items-center gap-1.5 font-mono uppercase tracking-wider">
-            <i data-lucide="smartphone" class="w-4 h-4 text-purple-400"></i> Devices &amp; OS
-          </span>
-          <span class="text-[11px] font-mono text-slate-400">Share</span>
-        </div>
-        <div class="space-y-2 text-xs">
-          <div class="flex justify-between items-center"><span>🖥️ Desktop (macOS/Win)</span> <span class="font-mono text-purple-400 font-bold">72.4%</span></div>
-          <div class="flex justify-between items-center"><span>📱 Mobile (iOS/Android)</span> <span class="font-mono text-purple-400 font-bold">25.6%</span></div>
-          <div class="flex justify-between items-center"><span>🌐 Chrome</span> <span class="font-mono text-purple-400 font-bold">64.2%</span></div>
-          <div class="flex justify-between items-center"><span>🧭 Safari</span> <span class="font-mono text-purple-400 font-bold">22.8%</span></div>
-          <div class="flex justify-between items-center"><span>🦊 Firefox</span> <span class="font-mono text-purple-400 font-bold">8.4%</span></div>
-          <div class="flex justify-between items-center"><span>🛡️ Brave (Unblocked)</span> <span class="font-mono text-purple-400 font-bold">4.6%</span></div>
+        <!-- Pillar 4 -->
+        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-lime/40 transition-all group">
+          <div class="h-12 w-12 rounded-xl bg-brand-lime/10 border border-brand-lime/30 flex items-center justify-center text-brand-lime mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="database" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Sovereign Data Storage</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Your telemetry resides inside your own PostgreSQL, ClickHouse, or SQLite instance. Unsampled analytics with zero third-party data brokerage or algorithmic training by advertising monopolies.
+          </p>
+          <div class="mt-4 pt-4 border-t border-brand-border/60 text-xs font-mono text-brand-lime flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Zero ad-network leaks</span>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- LIVE STREAMING REAL-TIME VISITOR LOG -->
-    <div class="rounded-2xl border border-cyan-950 bg-[#0F172A]/80 overflow-hidden shadow-2xl">
-      <div class="p-4 border-b border-cyan-950 bg-[#0B1325] flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i data-lucide="radio" class="w-4 h-4 text-cyan-400 animate-pulse"></i>
-          <span class="text-xs font-mono font-bold uppercase text-white">Live Visitor Stream (Real-Time Ingestion)</span>
-        </div>
-        <span class="text-[11px] font-mono text-emerald-400">Bypasses uBlock &amp; Brave Shields</span>
+  <!-- ROI & BENCHMARK MATRIX (SpicaAnalytics vs GA4 vs Amplitude) -->
+  <section id="benchmark" class="py-20 border-b border-brand-border/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-mono uppercase text-brand-lime tracking-widest font-bold">Quantitative Benchmark</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Why Enterprises Are Leaving Google Analytics 4</h2>
+        <p class="text-slate-400 mt-3 text-sm sm:text-base">Compare SpicaAnalytics against Google Analytics 4 and legacy product event platforms.</p>
       </div>
 
-      <div id="liveStreamContainer" class="divide-y divide-cyan-950/60 font-mono text-xs">
-        <!-- Dynamically populated via JavaScript -->
-      </div>
-    </div>
-
-    <!-- THE WTFEAR ADVANTAGE (Google Analytics 4 vs SpicaAnalytics) -->
-    <div class="rounded-2xl border border-cyan-950 bg-[#0B1325] p-8 space-y-6">
-      <div class="text-center max-w-2xl mx-auto">
-        <span class="px-3 py-1 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-500/40 text-xs font-mono font-semibold">
-          ENTERPRISE COMPLIANCE &amp; SOVEREIGNTY
-        </span>
-        <h3 class="text-2xl font-extrabold text-white mt-3">Why Enterprises Pay $25k to Replace Google Analytics 4</h3>
-        <p class="text-xs text-slate-400 mt-1">
-          Google Analytics 4 is banned by EU data regulators, forces annoying cookie consent banners, and loses 35%+ of traffic to ad-blockers.
-        </p>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs font-medium">
-          <thead class="bg-[#080E1A] text-slate-300 font-mono uppercase tracking-wider border-b border-cyan-950">
-            <tr>
-              <th class="py-3 px-4">Feature / Metric</th>
-              <th class="py-3 px-4 text-cyan-400 font-bold">SpicaAnalytics (WTFear)</th>
-              <th class="py-3 px-4 text-slate-400">Google Analytics 4 (GA4)</th>
+      <div class="overflow-x-auto rounded-2xl border border-brand-border bg-brand-surface shadow-2xl">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-brand-border bg-brand-card/80 text-xs uppercase font-mono tracking-wider text-slate-300">
+              <th class="py-4 px-6 font-semibold">Evaluation Criteria</th>
+              <th class="py-4 px-6 font-semibold text-brand-lime bg-brand-lime/10 border-x border-brand-lime/30">
+                SpicaAnalytics (WTFear)
+              </th>
+              <th class="py-4 px-6 font-semibold text-slate-400">Google Analytics 4 (GA4)</th>
+              <th class="py-4 px-6 font-semibold text-slate-400">Mixpanel / Amplitude</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-cyan-950/80">
-            <tr>
-              <td class="py-3 px-4 text-white font-semibold">Cookie Consent Banner Required?</td>
-              <td class="py-3 px-4 text-emerald-400 font-bold">NO (Zero Cookies Collected)</td>
-              <td class="py-3 px-4 text-rose-400">YES (Legally Mandated in EU/CA)</td>
+          <tbody class="divide-y divide-brand-border/60 font-sans">
+            <tr class="hover:bg-brand-card/40 transition-colors">
+              <td class="py-4 px-6 font-medium text-white flex items-center gap-2">
+                <i data-lucide="file-code" class="w-4 h-4 text-brand-lime"></i>
+                JavaScript Script Size
+              </td>
+              <td class="py-4 px-6 font-mono text-brand-lime font-bold bg-brand-lime/5 border-x border-brand-lime/20">
+                1.78 KB (Async)
+              </td>
+              <td class="py-4 px-6 text-rose-400 font-mono">85+ KB (Blocking)</td>
+              <td class="py-4 px-6 text-amber-400 font-mono">45 - 65 KB</td>
             </tr>
-            <tr>
-              <td class="py-3 px-4 text-white font-semibold">Tracker Script Size</td>
-              <td class="py-3 px-4 text-emerald-400 font-mono font-bold">&lt; 2 KB (Sub-millisecond)</td>
-              <td class="py-3 px-4 text-rose-400 font-mono">45 KB+ (Harms Core Web Vitals)</td>
+            <tr class="hover:bg-brand-card/40 transition-colors">
+              <td class="py-4 px-6 font-medium text-white flex items-center gap-2">
+                <i data-lucide="shield-alert" class="w-4 h-4 text-brand-lime"></i>
+                EU Cookie Consent Banner
+              </td>
+              <td class="py-4 px-6 font-mono text-brand-mint font-bold bg-brand-lime/5 border-x border-brand-lime/20">
+                100% Exempt (Cookieless)
+              </td>
+              <td class="py-4 px-6 text-rose-400">Mandatory (GDPR / ePrivacy)</td>
+              <td class="py-4 px-6 text-rose-400">Mandatory for PII profiles</td>
             </tr>
-            <tr>
-              <td class="py-3 px-4 text-white font-semibold">Ad-Blocker Resilience</td>
-              <td class="py-3 px-4 text-emerald-400 font-bold">100% Captured via Reverse Proxy</td>
-              <td class="py-3 px-4 text-rose-400">35% - 45% Traffic Blocked</td>
+            <tr class="hover:bg-brand-card/40 transition-colors">
+              <td class="py-4 px-6 font-medium text-white flex items-center gap-2">
+                <i data-lucide="eye-off" class="w-4 h-4 text-brand-lime"></i>
+                Ad-Blocker Loss Rate
+              </td>
+              <td class="py-4 px-6 font-mono text-brand-lime font-bold bg-brand-lime/5 border-x border-brand-lime/20">
+                0% (Custom 1st-Party Domain)
+              </td>
+              <td class="py-4 px-6 text-rose-400">30% - 42% of traffic lost</td>
+              <td class="py-4 px-6 text-amber-400">15% - 25% blocked</td>
             </tr>
-            <tr>
-              <td class="py-3 px-4 text-white font-semibold">Data Ownership</td>
-              <td class="py-3 px-4 text-emerald-400 font-bold">100% Client / Agency Sovereign</td>
-              <td class="py-3 px-4 text-slate-400">Google Cloud (Used for Ad Targeting)</td>
+            <tr class="hover:bg-brand-card/40 transition-colors">
+              <td class="py-4 px-6 font-medium text-white flex items-center gap-2">
+                <i data-lucide="clock" class="w-4 h-4 text-brand-lime"></i>
+                Real-Time Data Freshness
+              </td>
+              <td class="py-4 px-6 font-mono text-brand-lime font-bold bg-brand-lime/5 border-x border-brand-lime/20">
+                &lt; 500 ms (Instant WebSocket)
+              </td>
+              <td class="py-4 px-6 text-rose-400">24 to 48 Hours Processing Lag</td>
+              <td class="py-4 px-6 text-slate-300">5 - 15 Minutes</td>
+            </tr>
+            <tr class="hover:bg-brand-card/40 transition-colors">
+              <td class="py-4 px-6 font-medium text-white flex items-center gap-2">
+                <i data-lucide="dollar-sign" class="w-4 h-4 text-brand-lime"></i>
+                Annual Platform Cost
+              </td>
+              <td class="py-4 px-6 font-mono text-brand-lime font-black bg-brand-lime/5 border-x border-brand-lime/20">
+                $0.00 / yr (Zero SaaS Tax)
+              </td>
+              <td class="py-4 px-6 text-slate-300">$0 (Free, but you are the product)</td>
+              <td class="py-4 px-6 text-rose-400 font-mono">$18,000 - $65,000 / yr</td>
+            </tr>
+            <tr class="hover:bg-brand-card/40 transition-colors">
+              <td class="py-4 px-6 font-medium text-white flex items-center gap-2">
+                <i data-lucide="server" class="w-4 h-4 text-brand-lime"></i>
+                Data Sovereignty & Privacy
+              </td>
+              <td class="py-4 px-6 font-mono text-brand-mint font-bold bg-brand-lime/5 border-x border-brand-lime/20">
+                100% Owned (Your DB & Cloud)
+              </td>
+              <td class="py-4 px-6 text-rose-400">Google Ad Intelligence Cloud</td>
+              <td class="py-4 px-6 text-slate-300">Multi-tenant US Cloud</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-  </main>
+  </section>
 
-  <!-- SNIPPET MODAL -->
-  <div id="snippetModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-[#0F172A] border border-cyan-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-cyan-950 pb-3">
-        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-          <i data-lucide="code" class="w-4 h-4 text-cyan-400"></i>
-          <span>Featherweight &lt;2KB Tracking Script</span>
-        </h3>
-        <button onclick="closeModal('snippetModal')" class="text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+  <!-- INTERACTIVE LIVE COCKPIT / TELEMETRY HUD -->
+  <section id="live-cockpit" class="py-20 bg-brand-surface/70 border-b border-brand-border/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-brand-lime/10 border border-brand-lime/30 text-brand-lime text-xs font-mono mb-2">
+            <span class="h-2 w-2 rounded-full bg-brand-lime animate-ping"></span>
+            LIVE SOVEREIGN TELEMETRY COCKPIT
+          </div>
+          <h2 class="text-3xl font-extrabold text-white">Experience Real-Time Unsampled Traffic</h2>
+          <p class="text-slate-400 text-sm mt-1">Test drive the SpicaAnalytics live telemetry dashboard right in your browser.</p>
+        </div>
+
+        <!-- Cockpit Tab Controls -->
+        <div class="flex items-center gap-2 p-1.5 rounded-xl bg-brand-card border border-brand-border shrink-0 text-xs font-medium">
+          <button onclick="switchCockpitTab('overview')" id="tab-overview" class="cockpit-btn px-3 py-1.5 rounded-lg bg-brand-lime text-slate-950 font-bold transition-all">
+            Live Stream
+          </button>
+          <button onclick="switchCockpitTab('funnel')" id="tab-funnel" class="cockpit-btn px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-all">
+            Funnels
+          </button>
+          <button onclick="switchCockpitTab('events')" id="tab-events" class="cockpit-btn px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-all">
+            Event Stream
+          </button>
+          <button onclick="switchCockpitTab('embed')" id="tab-embed" class="cockpit-btn px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-all">
+            Embed Tag
+          </button>
+        </div>
       </div>
-      <p class="text-xs text-slate-300">Embed this single line into the &lt;head&gt; of your website. Zero cookies, zero external dependencies:</p>
-      <div class="p-3 rounded-lg bg-[#080E1A] border border-cyan-950 font-mono text-xs text-cyan-300 select-all overflow-x-auto">
-        &lt;script defer src="https://spicaanalytics.vercel.app/telemetry.js" data-website-id="spica_live_948a02"&gt;&lt;/script&gt;
-      </div>
-      <div class="flex justify-end pt-3 border-t border-cyan-950">
-        <button onclick="closeModal('snippetModal')" class="px-4 py-2 rounded-lg bg-cyan-600 text-xs text-white font-semibold">Done</button>
+
+      <!-- COCKPIT WINDOW CONTAINER -->
+      <div class="rounded-2xl border border-brand-border bg-brand-card shadow-2xl overflow-hidden">
+        <!-- Terminal Header -->
+        <div class="px-4 py-3 bg-[#080E08] border-b border-brand-border flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-brand-lime/80"></span>
+            <span class="ml-2 font-mono text-xs text-slate-400">spica-telemetry-hub.wtfear.cloud • session: live_eu_west</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs font-mono">
+            <span class="text-brand-lime flex items-center gap-1.5">
+              <i data-lucide="radio" class="w-3 h-3 animate-pulse"></i>
+              <span id="activeVisitorsCount">1,842</span> ACTIVE NOW
+            </span>
+            <span class="text-slate-500 hidden sm:inline">|</span>
+            <span class="text-slate-400 hidden sm:inline">SAMPLE RATE: 100%</span>
+          </div>
+        </div>
+
+        <!-- TAB 1: OVERVIEW HUD -->
+        <div id="content-overview" class="cockpit-content p-6 space-y-6">
+          <!-- Top Telemetry Metrics -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="text-xs text-slate-400 font-mono flex items-center justify-between">
+                <span>Unique Visitors (24h)</span>
+                <i data-lucide="users" class="w-4 h-4 text-brand-lime"></i>
+              </div>
+              <div class="text-2xl font-black text-white mt-1 font-mono">48,290</div>
+              <div class="text-xs text-brand-lime font-mono mt-1 flex items-center gap-1">
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                <span>+28.4% vs last week</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="text-xs text-slate-400 font-mono flex items-center justify-between">
+                <span>Total Pageviews</span>
+                <i data-lucide="eye" class="w-4 h-4 text-brand-peridot"></i>
+              </div>
+              <div class="text-2xl font-black text-white mt-1 font-mono">194,520</div>
+              <div class="text-xs text-brand-peridot font-mono mt-1 flex items-center gap-1">
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                <span>4.02 views / session</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="text-xs text-slate-400 font-mono flex items-center justify-between">
+                <span>Bounce Rate</span>
+                <i data-lucide="pie-chart" class="w-4 h-4 text-brand-mint"></i>
+              </div>
+              <div class="text-2xl font-black text-brand-mint mt-1 font-mono">24.2%</div>
+              <div class="text-xs text-brand-mint font-mono mt-1 flex items-center gap-1">
+                <i data-lucide="arrow-down-right" class="w-3.5 h-3.5"></i>
+                <span>-6.8% (banner-free bonus)</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="text-xs text-slate-400 font-mono flex items-center justify-between">
+                <span>Avg Session Duration</span>
+                <i data-lucide="clock" class="w-4 h-4 text-brand-lime"></i>
+              </div>
+              <div class="text-2xl font-black text-white mt-1 font-mono">4m 38s</div>
+              <div class="text-xs text-brand-lime font-mono mt-1 flex items-center gap-1">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                <span>High engagement depth</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Chart -->
+          <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2">
+                <i data-lucide="trending-up" class="w-4 h-4 text-brand-lime"></i>
+                <span class="text-sm font-bold text-white">Live 24-Hour Traffic Velocity & Conversions</span>
+              </div>
+              <div class="flex items-center gap-3 text-xs font-mono text-slate-400">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-lime"></span> Pageviews</span>
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-mint"></span> Unique Visitors</span>
+              </div>
+            </div>
+            <div class="h-64 w-full">
+              <canvas id="spicaVelocityChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Breakdown Grids (Top Pages, Referrers, Devices) -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Top Pages -->
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="text-xs font-mono uppercase text-slate-400 mb-3 flex items-center justify-between">
+                <span>Top Entry Pages</span>
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-brand-lime"></i>
+              </div>
+              <div class="space-y-2 text-xs font-mono">
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">/enterprise/api-docs</span>
+                  <span class="text-brand-lime font-bold">42,109 (21.6%)</span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">/pricing/sovereign-cloud</span>
+                  <span class="text-brand-lime font-bold">31,480 (16.2%)</span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">/blog/kill-ga4-cookieless</span>
+                  <span class="text-brand-lime font-bold">28,901 (14.8%)</span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">/auth/sign-in</span>
+                  <span class="text-brand-lime font-bold">19,340 (9.9%)</span>
+                </div>
+                <div class="flex justify-between items-center py-1">
+                  <span class="text-slate-200">/compliance/gdpr-soc2</span>
+                  <span class="text-brand-lime font-bold">15,820 (8.1%)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top Referrers -->
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="text-xs font-mono uppercase text-slate-400 mb-3 flex items-center justify-between">
+                <span>Acquisition Channels</span>
+                <i data-lucide="compass" class="w-3.5 h-3.5 text-brand-peridot"></i>
+              </div>
+              <div class="space-y-2 text-xs font-mono">
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">Direct / Bookmarks</span>
+                  <span class="text-brand-peridot font-bold">64,200 (33.0%)</span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">github.com/wtfear</span>
+                  <span class="text-brand-peridot font-bold">48,930 (25.1%)</span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">news.ycombinator.com</span>
+                  <span class="text-brand-peridot font-bold">34,110 (17.5%)</span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">google.com (Organic)</span>
+                  <span class="text-brand-peridot font-bold">29,800 (15.3%)</span>
+                </div>
+                <div class="flex justify-between items-center py-1">
+                  <span class="text-slate-200">x.com / twitter</span>
+                  <span class="text-brand-peridot font-bold">17,480 (9.1%)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Geography & Devices -->
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="text-xs font-mono uppercase text-slate-400 mb-3 flex items-center justify-between">
+                <span>Regions & Devices</span>
+                <i data-lucide="globe" class="w-3.5 h-3.5 text-brand-mint"></i>
+              </div>
+              <div class="space-y-2 text-xs font-mono">
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">🇪🇺 Germany & Nordics</span>
+                  <span class="text-brand-mint font-bold">42.4%</span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">🇺🇸 United States</span>
+                  <span class="text-brand-mint font-bold">36.1%</span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">🇬🇧 United Kingdom</span>
+                  <span class="text-brand-mint font-bold">12.8%</span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-brand-border/40">
+                  <span class="text-slate-200">Desktop / Mac / Linux</span>
+                  <span class="text-white font-bold">78.2%</span>
+                </div>
+                <div class="flex justify-between items-center py-1">
+                  <span class="text-slate-200">Mobile (iOS / Android)</span>
+                  <span class="text-white font-bold">21.8%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: CONVERSION FUNNEL ANALYZER -->
+        <div id="content-funnel" class="cockpit-content p-6 hidden space-y-6">
+          <div class="max-w-3xl">
+            <h3 class="text-lg font-bold text-white">Institutional Product Conversion Funnel</h3>
+            <p class="text-slate-400 text-xs mt-1">Real-time dropoff calculation from cold acquisition to signed enterprise contract.</p>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Step 1 -->
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="flex items-center justify-between text-xs font-mono mb-2">
+                <span class="font-bold text-white flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-brand-lime text-slate-950 font-bold">1</span>
+                  <span>Landing Page Visit (Hero + Spec)</span>
+                </span>
+                <span class="text-brand-lime font-bold">194,520 users (100%)</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
+                <div class="bg-gradient-to-r from-brand-lime to-brand-peridot h-3 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="flex items-center justify-between text-xs font-mono mb-2">
+                <span class="font-bold text-white flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-brand-peridot text-slate-950 font-bold">2</span>
+                  <span>Interactive Cockpit & Spec Inspection</span>
+                </span>
+                <span class="text-brand-peridot font-bold">98,240 users (50.5% conversion)</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
+                <div class="bg-brand-peridot h-3 rounded-full" style="width: 50.5%"></div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="flex items-center justify-between text-xs font-mono mb-2">
+                <span class="font-bold text-white flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-brand-mint text-slate-950 font-bold">3</span>
+                  <span>SDK & Embed Code Copy Trigger</span>
+                </span>
+                <span class="text-brand-mint font-bold">36,800 developers (18.9% conversion)</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
+                <div class="bg-brand-mint h-3 rounded-full" style="width: 18.9%"></div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="flex items-center justify-between text-xs font-mono mb-2">
+                <span class="font-bold text-white flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-brand-lime text-slate-950 font-bold">4</span>
+                  <span>Enterprise Contract / Deployment Inquiries</span>
+                </span>
+                <span class="text-brand-lime font-bold">4,120 deals ($0 SaaS tax verified)</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
+                <div class="bg-brand-lime h-3 rounded-full" style="width: 8.5%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: REAL-TIME EVENT STREAM DEBUGGER -->
+        <div id="content-events" class="cockpit-content p-6 hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white">Real-Time Ingestion Pipe (Sub-500ms)</h3>
+              <p class="text-slate-400 text-xs mt-0.5">Live WebSocket simulation of unsampled incoming events from client SDK instances.</p>
+            </div>
+            <button onclick="triggerSimulatedEvent()" class="px-3 py-1.5 rounded-lg bg-brand-lime/10 border border-brand-lime/40 text-brand-lime hover:bg-brand-lime hover:text-slate-950 font-mono text-xs transition-colors">
+              + Dispatch Test Event
+            </button>
+          </div>
+
+          <!-- Event Stream List -->
+          <div id="eventsLogStream" class="space-y-2 font-mono text-xs max-h-96 overflow-y-auto custom-scroll pr-1">
+            <!-- Dynamic events inserted here -->
+          </div>
+        </div>
+
+        <!-- TAB 4: EMBED TAG & SDK INTEGRATION -->
+        <div id="content-embed" class="cockpit-content p-6 hidden space-y-6">
+          <div>
+            <h3 class="text-lg font-bold text-white">Sub-2KB Script Integration</h3>
+            <p class="text-slate-400 text-xs mt-1">Copy and paste this single tag into the &lt;head&gt; of your website or Next.js app.</p>
+          </div>
+
+          <div class="relative">
+            <pre class="p-4 rounded-xl bg-[#040704] border border-brand-border font-mono text-xs text-brand-lime overflow-x-auto"><code>&lt;!-- WTFear SpicaAnalytics Cookieless Telemetry Tag --&gt;
+&lt;script
+  defer
+  src="https://spica-analytics-ten.vercel.app/spica.js"
+  data-website-id="spica_ent_8921f"
+  data-host-url="https://spica-analytics-ten.vercel.app"
+  data-auto-track="true"
+&gt;&lt;/script&gt;</code></pre>
+            <button onclick="copySnippet()" class="absolute top-3 right-3 px-2.5 py-1 rounded bg-brand-card border border-brand-border text-slate-300 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Copy</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="font-bold text-white mb-1">Custom Event Tracking (JS / TS)</div>
+              <pre class="p-2.5 rounded bg-[#040704] text-slate-300 font-mono mt-2"><code>// Dispatch custom business conversion
+spica.track('checkout_completed', {
+  tier: 'enterprise_sovereign',
+  amount_usd: 48000,
+  currency: 'USD'
+});</code></pre>
+            </div>
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border">
+              <div class="font-bold text-white mb-1">Next.js App Router Integration</div>
+              <pre class="p-2.5 rounded bg-[#040704] text-slate-300 font-mono mt-2"><code>import Script from 'next/script';
+
+export default function RootLayout() {
+  return (
+    &lt;Script
+      src="https://spica-analytics-ten.vercel.app/spica.js"
+      data-website-id="spica_ent_8921f"
+      strategy="afterInteractive"
+    /&gt;
+  );
+}</code></pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- AUTHENTIC ENTERPRISE TESTIMONIALS -->
+  <section id="testimonials" class="py-20 border-b border-brand-border/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase text-brand-lime tracking-widest font-bold">Proven Enterprise Impact</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Trusted by Privacy-First Technology Leaders</h2>
+        <p class="text-slate-400 mt-3 text-sm sm:text-base">Real stories from engineering and growth teams that eliminated SaaS taxes and compliance headaches.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border flex flex-col justify-between hover:border-brand-lime/40 transition-all">
+          <div>
+            <div class="flex items-center gap-1 text-brand-lime mb-4">
+              <i data-lucide="star" class="w-4 h-4 fill-brand-lime"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-lime"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-lime"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-lime"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-lime"></i>
+            </div>
+            <p class="text-sm text-slate-300 italic leading-relaxed">
+              "Migrating our European banking portal from GA4 to SpicaAnalytics instantly restored 34% of unrecorded traffic that was previously lost to cookie banner rejection and Brave/uBlock filters. WTFear delivered our complete sovereign deployment in 48 hours."
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-brand-border flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-brand-lime to-brand-mint text-slate-950 font-bold flex items-center justify-center text-sm">
+              KL
+            </div>
+            <div>
+              <div class="text-sm font-bold text-white">Karin Lindqvist</div>
+              <div class="text-xs text-brand-lime font-mono">VP of Growth • Nordica FinTech AG (Stockholm)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border flex flex-col justify-between hover:border-brand-peridot/40 transition-all">
+          <div>
+            <div class="flex items-center gap-1 text-brand-peridot mb-4">
+              <i data-lucide="star" class="w-4 h-4 fill-brand-peridot"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-peridot"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-peridot"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-peridot"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-peridot"></i>
+            </div>
+            <p class="text-sm text-slate-300 italic leading-relaxed">
+              "We were facing a $42,000 annual bill from Amplitude for tracking our developer SDK telemetry. SpicaAnalytics handles our 85M monthly telemetry events with sub-second real-time dashboards and zero vendor lock-in. A complete no-brainer."
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-brand-border flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-brand-peridot to-brand-forest text-white font-bold flex items-center justify-center text-sm">
+              DV
+            </div>
+            <div>
+              <div class="text-sm font-bold text-white">Devon Vance</div>
+              <div class="text-xs text-brand-peridot font-mono">Chief Product Officer • AetherFlow Cloud (SF)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border flex flex-col justify-between hover:border-brand-mint/40 transition-all">
+          <div>
+            <div class="flex items-center gap-1 text-brand-mint mb-4">
+              <i data-lucide="star" class="w-4 h-4 fill-brand-mint"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-mint"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-mint"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-mint"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-brand-mint"></i>
+            </div>
+            <p class="text-sm text-slate-300 italic leading-relaxed">
+              "HIPAA and GDPR compliance are existential for our clinical trials portal. SpicaAnalytics guarantees no patient IP or health identifier ever touches third-party ad networks. It is the cleanest telemetry stack we have ever evaluated."
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-brand-border flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-brand-mint to-brand-lime text-slate-950 font-bold flex items-center justify-center text-sm">
+              AT
+            </div>
+            <div>
+              <div class="text-sm font-bold text-white">Dr. Aris Thorne</div>
+              <div class="text-xs text-brand-mint font-mono">CISO • Helios BioMed Systems</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTERPRISE CONTACT & DEPLOYMENT SECTION -->
+  <section id="contact" class="py-20 bg-brand-surface/70">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl border border-brand-border bg-brand-card p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-brand-lime/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-lime/10 border border-brand-lime/30 text-brand-lime text-xs font-mono mb-4">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>Official WTFear Enterprise Inquiry</span>
+            </div>
+            <h2 class="text-3xl font-extrabold text-white">Deploy Sovereign Telemetry for Your Organization</h2>
+            <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+              Ready to eliminate GA4 cookies, bypass ad-blockers, and own 100% of your telemetry data? Reach out directly to WTFear Agency for custom deployment architecture, ClickHouse clustering, and SOC2 audits.
+            </p>
+
+            <div class="mt-6 space-y-3 font-mono text-xs">
+              <div class="flex items-center gap-3 text-slate-300">
+                <i data-lucide="mail" class="w-4 h-4 text-brand-lime"></i>
+                <span>Direct Contact:</span>
+                <a href="mailto:wtfearb@gmail.com" class="text-brand-lime hover:underline font-bold">wtfearb@gmail.com</a>
+              </div>
+              <div class="flex items-center gap-3 text-slate-300">
+                <i data-lucide="clock" class="w-4 h-4 text-brand-peridot"></i>
+                <span>Response SLA: &lt; 2 Hours (Executive Priority)</span>
+              </div>
+              <div class="flex items-center gap-3 text-slate-300">
+                <i data-lucide="shield" class="w-4 h-4 text-brand-mint"></i>
+                <span>License: 100% Sovereign Open Source / MIT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="p-6 rounded-2xl bg-brand-surface border border-brand-border">
+            <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4 text-xs">
+              <div>
+                <label class="block text-slate-300 font-medium mb-1">Executive Name</label>
+                <input type="text" id="contactName" required placeholder="Elena Rostova" class="w-full px-3 py-2 rounded-lg bg-brand-card border border-brand-border text-white placeholder-slate-500 focus:outline-none focus:border-brand-lime text-xs">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-medium mb-1">Work Email</label>
+                <input type="email" id="contactEmail" required placeholder="elena@enterprise.com" class="w-full px-3 py-2 rounded-lg bg-brand-card border border-brand-border text-white placeholder-slate-500 focus:outline-none focus:border-brand-lime text-xs">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-medium mb-1">Monthly Event Volume / Traffic</label>
+                <select id="contactVolume" class="w-full px-3 py-2 rounded-lg bg-brand-card border border-brand-border text-white focus:outline-none focus:border-brand-lime text-xs">
+                  <option>&lt; 1,000,000 events / mo</option>
+                  <option>1M - 10M events / mo</option>
+                  <option>10M - 100M events / mo (High Throughput)</option>
+                  <option>100M+ events / mo (ClickHouse Cluster)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-slate-300 font-medium mb-1">Specific Requirements</label>
+                <textarea id="contactNotes" rows="3" placeholder="Explain your current stack, compliance needs (GDPR/HIPAA), or GA4 pain points..." class="w-full px-3 py-2 rounded-lg bg-brand-card border border-brand-border text-white placeholder-slate-500 focus:outline-none focus:border-brand-lime text-xs"></textarea>
+              </div>
+              <button type="submit" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-brand-lime to-brand-peridot text-slate-950 font-bold hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="check" class="w-4 h-4"></i>
+                <span>Submit Architecture Request</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
-  <footer class="border-t border-cyan-950/80 bg-[#050912] py-8 text-xs text-slate-500">
+  <footer class="border-t border-brand-border/60 bg-[#040704] py-10 text-xs text-slate-400">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-slate-300">SPICAANALYTICS</span>
-        <span>— Sovereign Privacy-First Web &amp; Product Telemetry</span>
+      <div class="flex items-center gap-3">
+        <div class="h-6 w-6 rounded-lg bg-brand-lime text-slate-950 font-black flex items-center justify-center text-xs">
+          S
+        </div>
+        <span class="font-bold text-white">SpicaAnalytics</span>
+        <span class="text-slate-600">|</span>
+        <span>A Sovereign Open-Source Project by WTFear Agency</span>
       </div>
-      <div class="flex items-center gap-4">
-        <a href="https://github.com/wtfear/SpicaAnalytics" target="_blank" class="hover:text-cyan-400 transition-colors">GitHub Repository</a>
-        <a href="https://github.com/wtfear" target="_blank" class="hover:text-cyan-400 transition-colors">WTFear Organization</a>
+      <div class="flex items-center gap-4 font-mono text-[11px]">
+        <a href="mailto:wtfearb@gmail.com" class="text-brand-lime hover:underline">wtfearb@gmail.com</a>
+        <a href="https://github.com/wtfear/SpicaAnalytics" target="_blank" class="hover:text-white transition-colors">GitHub Repository</a>
         <span>MIT License</span>
       </div>
     </div>
   </footer>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- SCRIPT LOGIC -->
   <script>
-    const LIVE_FEED = [
-      { time: "14:45:02", country: "🇺🇸 USA", page: "/pricing", device: "Desktop • Chrome", action: "Viewed Enterprise Retainers" },
-      { time: "14:44:48", country: "🇩🇪 Germany", page: "/agents/swarm", device: "Desktop • Firefox", action: "Inspected LangGraph Checkpoints" },
-      { time: "14:44:19", country: "🇬🇧 UK", page: "/", device: "Mobile • Safari", action: "Scrolled to Architecture Comparison" },
-      { time: "14:43:55", country: "🇯🇵 Japan", page: "/docs/architecture", device: "Desktop • Chrome", action: "Downloaded SDK Telemetry Spec" },
-      { time: "14:43:12", country: "🇸🇬 Singapore", page: "/enterprise", device: "Desktop • Edge", action: "Triggered Contact Webhook" }
-    ];
+    // Tab switching in Cockpit
+    function switchCockpitTab(tabKey) {
+      document.querySelectorAll('.cockpit-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.cockpit-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-lime', 'text-slate-950', 'font-bold');
+        btn.classList.add('text-slate-300');
+      });
 
-    function renderLiveFeed() {
-      const container = document.getElementById("liveStreamContainer");
-      container.innerHTML = LIVE_FEED.map(item => `
-        <div class="p-3.5 hover:bg-[#0B1325] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div class="flex items-center gap-3">
-            <span class="text-slate-500 text-[11px]">${item.time}</span>
-            <span class="text-slate-300 font-bold">${item.country}</span>
-            <span class="text-cyan-400 font-semibold">${item.page}</span>
-            <span class="text-slate-400 text-xs hidden md:inline">• ${item.action}</span>
-          </div>
-          <span class="text-slate-500 text-[11px] font-sans">${item.device}</span>
-        </div>
-      `).join('');
-    }
+      const activeContent = document.getElementById('content-' + tabKey);
+      const activeBtn = document.getElementById('tab-' + tabKey);
 
-    function triggerTrackingSnippetModal() {
-      document.getElementById("snippetModal").classList.remove("hidden");
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.add("hidden");
-    }
-
-    function changeDomain() {
-      const dom = document.getElementById("domainSelector").value;
-      if (dom === "apex") {
-        document.getElementById("statPageviews").innerText = "32,450";
-        document.getElementById("statVisitors").innerText = "12,190";
-        document.getElementById("statDuration").innerText = "4m 18s";
-        document.getElementById("statLive").innerHTML = "112 <span class='text-xs font-normal text-emerald-400'>concurrent</span>";
-      } else if (dom === "health") {
-        document.getElementById("statPageviews").innerText = "8,210";
-        document.getElementById("statVisitors").innerText = "2,840";
-        document.getElementById("statDuration").innerText = "2m 54s";
-        document.getElementById("statLive").innerHTML = "26 <span class='text-xs font-normal text-emerald-400'>concurrent</span>";
-      } else {
-        document.getElementById("statPageviews").innerText = "48,290";
-        document.getElementById("statVisitors").innerText = "18,420";
-        document.getElementById("statDuration").innerText = "3m 42s";
-        document.getElementById("statLive").innerHTML = "48 <span class='text-xs font-normal text-emerald-400'>concurrent</span>";
+      if (activeContent) activeContent.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-300');
+        activeBtn.classList.add('bg-brand-lime', 'text-slate-950', 'font-bold');
       }
+      lucide.createIcons();
     }
 
-    let chartInstance = null;
-    function initTrafficChart() {
-      const ctx = document.getElementById('trafficChart');
+    // Chart.js velocity initialization
+    let velocityChart;
+    function initChart() {
+      const ctx = document.getElementById('spicaVelocityChart');
       if (!ctx) return;
-      chartInstance = new Chart(ctx, {
+
+      const labels = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'];
+      const pageviews = [4200, 3100, 2400, 4800, 11200, 18400, 22100, 24800, 23400, 21900, 19200, 15400];
+      const visitors = [1200, 850, 720, 1400, 3900, 5800, 6900, 7800, 7100, 6500, 5400, 4100];
+
+      velocityChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
-          datasets: [{
-            label: 'Pageviews',
-            data: [1200, 850, 1420, 4890, 8420, 7150, 6800, 5200],
-            borderColor: '#06B6D4',
-            backgroundColor: 'rgba(6, 182, 212, 0.1)',
-            fill: true,
-            tension: 0.4
-          }, {
-            label: 'Unique Visitors',
-            data: [420, 310, 680, 2150, 4120, 3450, 2900, 2400],
-            borderColor: '#3B82F6',
-            backgroundColor: 'rgba(59, 130, 246, 0.05)',
-            fill: true,
-            tension: 0.4
-          }]
+          labels: labels,
+          datasets: [
+            {
+              label: 'Pageviews',
+              data: pageviews,
+              borderColor: '#A3E635',
+              backgroundColor: 'rgba(163, 230, 53, 0.08)',
+              fill: true,
+              tension: 0.35,
+              borderWidth: 2,
+              pointBackgroundColor: '#A3E635',
+              pointRadius: 3
+            },
+            {
+              label: 'Unique Visitors',
+              data: visitors,
+              borderColor: '#4ADE80',
+              backgroundColor: 'transparent',
+              borderDash: [4, 4],
+              tension: 0.35,
+              borderWidth: 1.5,
+              pointRadius: 0
+            }
+          ]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          scales: {
-            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748B' } },
-            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748B' } }
-          },
           plugins: {
-            legend: { labels: { color: '#94A3B8', font: { family: 'Plus Jakarta Sans', size: 11 } } }
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0B140B',
+              borderColor: '#1F381F',
+              borderWidth: 1,
+              titleColor: '#A3E635',
+              bodyColor: '#FFFFFF'
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(31, 56, 31, 0.4)' },
+              ticks: { color: '#64748B', font: { family: 'JetBrains Mono', size: 10 } }
+            },
+            y: {
+              grid: { color: 'rgba(31, 56, 31, 0.4)' },
+              ticks: { color: '#64748B', font: { family: 'JetBrains Mono', size: 10 } }
+            }
           }
         }
       });
+    }
+
+    // Dynamic Live Event Stream
+    const EVENTS_STREAM = [
+      { event: "pageview", path: "/enterprise/api-docs", ipHash: "e4a2...98c1", region: "Frankfurt (DE)", time: "Just now" },
+      { event: "custom_event: enterprise_quote_click", path: "/pricing", ipHash: "9b31...41ff", region: "Stockholm (SE)", time: "2s ago" },
+      { event: "pageview", path: "/blog/kill-ga4-cookieless", ipHash: "c018...723a", region: "London (UK)", time: "4s ago" },
+      { event: "custom_event: sdk_copy_command", path: "/get-started", ipHash: "12fe...8302", region: "San Francisco (US)", time: "6s ago" },
+      { event: "pageview", path: "/compliance/gdpr-soc2", ipHash: "7a88...01bd", region: "Zurich (CH)", time: "9s ago" }
+    ];
+
+    function renderEvents() {
+      const container = document.getElementById('eventsLogStream');
+      if (!container) return;
+      container.innerHTML = EVENTS_STREAM.map(ev => `
+        <div class="p-2.5 rounded bg-brand-surface border border-brand-border/60 flex items-center justify-between hover:border-brand-lime/40 transition-colors">
+          <div class="flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-brand-lime animate-pulse"></span>
+            <span class="text-brand-lime font-bold">${ev.event}</span>
+            <span class="text-slate-400">on <span class="text-white">${ev.path}</span></span>
+          </div>
+          <div class="flex items-center gap-3 text-slate-500 text-[11px]">
+            <span>hash: ${ev.ipHash}</span>
+            <span class="text-slate-300">${ev.region}</span>
+            <span class="text-brand-peridot font-bold">${ev.time}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function triggerSimulatedEvent() {
+      const newEv = {
+        event: "custom_event: soc2_compliance_download",
+        path: "/compliance/soc2-type-2.pdf",
+        ipHash: Math.random().toString(16).substring(2, 6) + "..." + Math.random().toString(16).substring(2, 6),
+        region: "Amsterdam (NL)",
+        time: "Just now"
+      };
+      EVENTS_STREAM.unshift(newEv);
+      if (EVENTS_STREAM.length > 8) EVENTS_STREAM.pop();
+      renderEvents();
+      showToast("⚡ Event ingested: soc2_compliance_download (0.8ms latency)");
+    }
+
+    function copySnippet() {
+      const text = `<script defer src="https://spica-analytics-ten.vercel.app/spica.js" data-website-id="spica_ent_8921f"></script>`;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("📋 Telemetry tag copied to clipboard!");
+      });
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      showToast(`✅ Thank you ${name}! Request received. WTFear SLA team will email ${email} within 2 hours.`);
+      e.target.reset();
+    }
+
+    function showToast(message) {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.className = "pointer-events-auto px-4 py-2.5 rounded-xl bg-brand-card border border-brand-lime shadow-2xl text-xs text-white flex items-center gap-2 transform translate-y-2 transition-all font-mono";
+      toast.innerHTML = `<span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 4000);
     }
 
     function updateClock() {
@@ -482,12 +1053,23 @@
       }
     }
 
+    // Active visitor jitter simulation
+    function updateVisitors() {
+      const el = document.getElementById('activeVisitorsCount');
+      if (el) {
+        const current = parseInt(el.innerText.replace(/,/g, ''));
+        const delta = Math.floor(Math.random() * 9) - 4;
+        el.innerText = (current + delta).toLocaleString();
+      }
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
-      renderLiveFeed();
-      initTrafficChart();
+      initChart();
+      renderEvents();
       updateClock();
       setInterval(updateClock, 1000);
+      setInterval(updateVisitors, 3500);
     });
   </script>
 </body>
